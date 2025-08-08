@@ -67,6 +67,12 @@
             <version>2.6.2</version>
         </dependency>
 
+        <!-- hipermidias -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
 		<!-- lombok-->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

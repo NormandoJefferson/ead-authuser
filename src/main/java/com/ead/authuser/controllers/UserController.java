@@ -20,6 +20,9 @@ import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600) // Permite que seja acessado de qualquer lugar
 @RequestMapping("/users")
@@ -30,9 +33,19 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<Page<UserModel>> getAllUsers(
-            SpecificationTemplate.UserSpec spec, // Recebemos um specification
+            SpecificationTemplate.UserSpec spec,
             @PageableDefault(page = 0, size = 10, sort = "userId", direction = Sort.Direction.ASC) Pageable pageable) {
+
         Page<UserModel> userModelPage = userService.findAll(spec, pageable);
+
+        // Se a lista não estiver vazia vamos contruir os links
+        if (!userModelPage.isEmpty()) {
+            for (UserModel userModel : userModelPage.toList()) {
+                // Informamos o controller e o metodo que vai ser usado
+                userModel.add(linkTo(methodOn(UserController.class).getOneUser(userModel.getUserId())).withSelfRel());
+            }
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(userModelPage);
     }
 
