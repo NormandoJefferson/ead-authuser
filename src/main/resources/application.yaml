@@ -1,5 +1,7 @@
 server:
   port: 8087
+  servlet:
+    context-path: '/ead-authuser/'  # path da rota do gateway
 
 spring:
   application:
