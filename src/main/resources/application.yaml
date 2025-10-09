@@ -34,7 +34,7 @@ logging:
 ead:
   api:
     url:
-      course: 'http://ead-course-service' # nome do servico de course
+      course: 'http://ead-course-service/ead-course' # nome do servico de course e o seu context path
 
 eureka:
   client:
