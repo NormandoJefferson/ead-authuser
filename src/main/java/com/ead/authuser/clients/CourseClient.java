@@ -29,7 +29,7 @@ public class CourseClient {
     @Autowired
     UtilsService utilsService;
 
-    @Value("$(ead.api.url.course")
+    @Value("${ead.api.url.course}")
     String REQUEST_URL_COURSE;
 
     public Page<CourseDto> getAllCoursesByUser(UUID userId, Pageable pageable) {
